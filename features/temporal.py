@@ -21,7 +21,7 @@ def f_total_hours(data:data):
     hours = (first - last).total_seconds()
     return hours
 
-def get_consecutive_days(data:data): 
+def f_consecutive_days(data:data):
     tweets = data.getTweets()
     last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     dateList = []
