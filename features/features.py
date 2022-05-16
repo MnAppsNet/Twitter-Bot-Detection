@@ -19,7 +19,7 @@ class features:
     def get_temporal_features(self):
         return self.get_features(temporal)
 
-    def get_temporal_features(self):
+    def get_content_features(self):
         return self.get_features(content)
 
     #################################################################
