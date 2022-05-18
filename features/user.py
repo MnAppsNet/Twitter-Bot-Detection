@@ -25,3 +25,23 @@ def f_user_screen_name_length(data:data):
     userData = data.getUserData()
     if not "screen_name" in userData: return None
     return len(userData['screen_name'])
+
+def f_user_followers_count(data:data):
+    userData = data.getUserData()        
+    if not "followers_count" in userData: return None
+    return userData['followers_count']
+
+def f_user_friends_count(data:data):
+    userData = data.getUserData()        
+    if not "friends_count" in userData: return None
+    return userData['friends_count']
+
+def f_user_is_verified(data:data):
+    userData = data.getUserData()        
+    if not "verified" in userData: return None
+    return userData['verified']
+
+def f_user_description_length(data:data):
+    userData = data.getUserData()        
+    if not "description" in userData: return 0
+    return len(userData['description'])
