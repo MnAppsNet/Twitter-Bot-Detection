@@ -23,4 +23,11 @@ def get_statistical_results_of_list(aList):
     else:
         return 0,0,0,0,0,0,0,0
 
-        
+def get_all_texts(tweets):
+    all_texts=[]
+    for t in tweets:
+        if 'full_text' in t:
+            all_texts.append(t['full_text'])
+        else:
+            all_texts.append(t['text'])
+    return all_texts
