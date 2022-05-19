@@ -3,6 +3,7 @@ from tools import data
 from collections import Counter
 from scipy import stats
 from features.tools import get_statistical_results_of_list
+import numpy as np
 
 ################################################################
 # In this script we put all the temporal related features.
