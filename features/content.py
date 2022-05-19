@@ -18,7 +18,8 @@ def calculate_entropy(sentence):
             entropy += - Px * math.log(Px, 2)
     return entropy
 
-def f_get_text_size_distributions(tweets):
+def f_get_text_size_distributions(data:data):
+    tweets = data.getTweets()
     length=[]
     for t in tweets:
         if 'retweeted_status' not in t:
@@ -33,7 +34,8 @@ def f_get_text_size_distributions(tweets):
             length.append(numOfWords)
     return get_statistical_results_of_list(length)
 
-def f_get_text_entropy_distributions(tweets):
+def f_get_text_entropy_distributions(data:data):
+    tweets = data.getTweets()
     texts = []
     for t in tweets:
         if 'retweeted_status' not in t:
