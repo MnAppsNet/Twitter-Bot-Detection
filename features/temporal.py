@@ -7,9 +7,30 @@ import numpy as np
 
 ################################################################
 # In this script we put all the temporal related features.
-# All the functions starting with 'f_' will be callled and
-# they are expected to return a feature
+# All the functions starting with 'f_' will be called and
+# they are expected to return a feature. The feature name is
+# defined by the function name excluding the 'f_'.
+# In case the feature returns multiple data, put then in a list
+# that will contains another list of length two, the first item
+# will be an identifier and the second the value.
+# Example :
+# def f_date(data:data):
+#   tweets = data.getTweets()
+#   first = datetime.strptime(tweets[0]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
+#   last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
+#   return [ ["first",first] , ["last", last ]  ]
+#The example above will create two new features in our dataset, the date_first
+#and the date_last.
 ################################################################
+
+def consecutive_days(data:data):
+    tweets = data.getTweets()
+    last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
+    dateList = []
+    numofDays = f_total_days(tweets)
+    for n in range(numofDays + 1):
+        dateList.append(last.date() + timedelta(n))
+    return dateList
 
 def f_total_days(data:data):
     tweets = data.getTweets()
@@ -25,22 +46,13 @@ def f_total_hours(data:data):
     hours = (first - last).total_seconds()
     return hours
 
-def f_consecutive_days(data:data):
-    tweets = data.getTweets()
-    last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
-    dateList = []
-    numofDays = f_total_days(tweets)
-    for n in range(numofDays + 1):
-        dateList.append(last.date() + timedelta(n))
-    return dateList
-
 def f_max_min_tweets_per_day(data:data):
     tweets = data.getTweets()
     dates = []
     for t in tweets:
         tweet_date = datetime.strptime(t['created_at'],'%a %b %d %H:%M:%S +0000 %Y').date()
         dates.append(tweet_date)
-    date_list = f_consecutive_days(tweets)
+    date_list = consecutive_days(tweets)
     # print (date_list)
     c = Counter(dates)
     if len(date_list)>0:
