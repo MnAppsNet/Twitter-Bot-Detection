@@ -10,7 +10,15 @@ class features:
         user_features = {}
         for fm in getmembers(importedScript, isfunction):
             if not fm[0][:2] == 'f_': continue
-            user_features[fm[0][2:]] = eval(importedScript.__name__ + "." + fm[0] + "(self.data)")
+            results = eval(importedScript.__name__ + "." + fm[0] + "(self.data)")
+            feature_name = fm[0][2:]
+            if type(results) == list:
+            #If a list of features is returned, create a new entry for each
+                if len(results) >= 2:
+                    for result in results:
+                        user_features[feature_name + str(results[0])] = result[1]
+            else:
+                user_features[feature_name] = results
         return user_features
 
     def get_user_features(self):

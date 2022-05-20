@@ -34,7 +34,7 @@ def f_consecutive_days(data:data):
         dateList.append(last.date() + timedelta(n))
     return dateList
 
-def f_get_max_min_tweets_per_day(data:data):    
+def f_max_min_tweets_per_day(data:data):
     tweets = data.getTweets()
     dates = []
     for t in tweets:
@@ -54,10 +54,10 @@ def f_get_max_min_tweets_per_day(data:data):
         # print('get_max_min_tweets_per_day')
         return 0,0,0,0,0,0,0,0,c    
 
-def f_get_consecutive_days_of_no_activity(data:data):
+def f_consecutive_days_of_no_activity(data:data):
     tweets = data.getTweets()
     minV, maxV, meanV, medianV, stdV, \
-    skewV, kurtV, entV, c= f_get_max_min_tweets_per_day(tweets)
+    skewV, kurtV, entV, c= f_max_min_tweets_per_day(tweets)
     alldates = f_consecutive_days(tweets)
     i = 0
     maximum = 0
@@ -79,11 +79,11 @@ def f_get_consecutive_days_of_no_activity(data:data):
     else:
         return 0    
 
-def f_get_consecutive_days_of_activity(data:data):
+def f_consecutive_days_of_activity(data:data):
     tweets = data.getTweets()
     # print ('get_consecutive_days_of_activity')
     minV, maxV, meanV, medianV, stdV, \
-    skewV, kurtV, entV, c = f_get_max_min_tweets_per_day(tweets)
+    skewV, kurtV, entV, c = f_max_min_tweets_per_day(tweets)
     alldates = f_consecutive_days(tweets)
     i = 0
     maximum = 0
@@ -105,7 +105,7 @@ def f_get_consecutive_days_of_activity(data:data):
     else:
         return maximum           
 
-def f_get_average_time_between_tweets(data:data):
+def f_average_time_between_tweets(data:data):
     tweets = data.getTweets()    
     # print ('get average time between tweets')
     gapList = []
@@ -118,7 +118,7 @@ def f_get_average_time_between_tweets(data:data):
         gapList.append(gap)
     return get_statistical_results_of_list(gapList)      
 
-def f_get_max_occurence_of_same_gap(data:data):
+def f_max_occurence_of_same_gap(data:data):
     tweets = data.getTweets()     
     # print ('get average time between tweets')
     gapList = []

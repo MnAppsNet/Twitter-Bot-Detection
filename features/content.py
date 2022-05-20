@@ -22,7 +22,7 @@ def calculate_entropy(sentence):
             entropy += - Px * math.log(Px, 2)
     return entropy
 
-def f_get_text_size_distributions(data:data):
+def f_text_size_distributions(data:data):
     tweets = data.getTweets()
     length=[]
     for t in tweets:
@@ -38,7 +38,7 @@ def f_get_text_size_distributions(data:data):
             length.append(numOfWords)
     return get_statistical_results_of_list(length)
 
-def f_get_text_entropy_distributions(data:data):
+def f_text_entropy_distributions(data:data):
     tweets = data.getTweets()
     texts = []
     for t in tweets:
@@ -57,7 +57,7 @@ def f_get_text_entropy_distributions(data:data):
         entropies.append(ent)
     return get_statistical_results_of_list(entropies)
 
-def f_get_jaccard_sim(str1, str2):
+def f_jaccard_sim(str1, str2):
     a = set(str1.split())
     b = set(str2.split())
     c = a.intersection(b)
@@ -66,17 +66,17 @@ def f_get_jaccard_sim(str1, str2):
     except ZeroDivisionError:
         return 0.0
 
-def f_get_similarities(data:data):
+def f_similarities(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     similarities = []
     if len(texts)>2:
         combos = combinations(texts, 2)
         for c in combos:
-            similarities.append(f_get_jaccard_sim(c[0], c[1]))
+            similarities.append(f_jaccard_sim(c[0], c[1]))
     return get_statistical_results_of_list(similarities)
 
-def f_get_total_pos_tags(data:data):
+def f_total_pos_tags(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     allTags=[]
@@ -89,7 +89,7 @@ def f_get_total_pos_tags(data:data):
         allTags.extend(tags)
     return allTags
 
-def f_get_pos_tag_per_tweet(data:data):
+def f_pos_tag_per_tweet(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     perTweetTags=[]
@@ -102,7 +102,7 @@ def f_get_pos_tag_per_tweet(data:data):
         perTweetTags.append(tags)
     return perTweetTags
 
-def f_get_all_punctuation_marks(data:data):
+def f_all_punctuation_marks(data:data):
     tweets = data.getTweets()
     marks=[]
     all_texts = get_all_texts(tweets)
@@ -111,16 +111,16 @@ def f_get_all_punctuation_marks(data:data):
     return marks
 
 
-def f_get_common_marks(data:data):
+def f_common_marks(data:data):
     tweets = data.getTweets()
-    allmarks = f_get_all_punctuation_marks(tweets)
+    allmarks = f_all_punctuation_marks(tweets)
     if len(allmarks) > 0:
         c = Counter(allmarks)
         return c.most_common(1)[0][0],c.most_common(1)[0][1]
     else:
         return '',0
 
-def f_get_marks_per_tweet(data:data):
+def f_marks_per_tweet(data:data):
     tweets = data.getTweets()
     marks_count=[]
     all_texts = get_all_texts(tweets)
@@ -129,6 +129,6 @@ def f_get_marks_per_tweet(data:data):
             marks_count.append(len([char for char in t if char in string.punctuation]))
     return marks_count
 
-def f_get_marks_distribution(tweets):
-    marksPerTweet = f_get_marks_per_tweet(tweets)
+def f_marks_distribution(tweets):
+    marksPerTweet = f_marks_per_tweet(tweets)
     return get_statistical_results_of_list(marksPerTweet)

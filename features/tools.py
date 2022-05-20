@@ -18,10 +18,13 @@ class data:
 
 def get_statistical_results_of_list(aList):
     if len(aList)>=1:
-        return min(aList), max(aList), np.mean(aList), np.median(aList), np.std(aList), \
-               stats.skew(aList), stats.kurtosis(aList), entr(np.array(aList)).sum()
+        return [
+            ["min",min(aList)], ["max",max(aList)], ["mean",np.mean(aList)], ["median",np.median(aList)], ["std",np.std(aList)], \
+               ["skew",stats.skew(aList)], ["kurtosis",stats.kurtosis(aList)], ["entropy",entr(np.array(aList)).sum()]
+        ]
     else:
-        return 0,0,0,0,0,0,0,0
+        return ["min",0], ["max",0], ["mean",0], ["median",0], ["std",0], \
+               ["skew",0], ["kurtosis",0], ["entropy",0]
 
 def get_all_texts(tweets):
     all_texts=[]
