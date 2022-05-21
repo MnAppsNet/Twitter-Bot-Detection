@@ -1,2 +1,4 @@
 /api_key.json
 /pass.txt
+/__pycache__
+/features/__pycache__

@@ -1,9 +1,9 @@
 from ast import If
 import numbers
 from xml.dom import UserDataHandler
-from tools import data
+from features.tools import data
 import re
-import datetime
+from datetime import datetime
 
 ################################################################
 # In this script we put all the temporal related features.
@@ -44,73 +44,73 @@ def f_user_screen_name_length(data:data):
     return len(userData['screen_name'])
 
 def f_user_followers_count(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "followers_count" in userData: return None
     return userData['followers_count']
 
 def f_user_friends_count(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "friends_count" in userData: return None
     return userData['friends_count']
 
 def f_user_is_verified(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "verified" in userData: return None
     return userData['verified']
 
 def f_user_description_length(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "description" in userData: return 0
     return len(userData['description'])
 
 def f_numbers_in_screen_name(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "screen_name" in userData: return None
     numbers = re.findall(r'\d+', userData["screen_name"])
-    return len(numbers)  
+    return len(numbers)
 
 def f_numbers_in_name(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "name" in userData: return None
     numbers = re.findall(r'\d+', userData["name"])
-    return len(numbers) 
+    return len(numbers)
 
 def f_user_tweets_count(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "statuses_count" in userData: return None
     return userData['statuses_count']
 
 def f_has_bot_word_in_name(data:data):
-    userData = data.getUserData() 
+    userData = data.getUserData()
     if not "name" in userData: return None
     matchObj = re.search('bot', userData['name'], flags=re.IGNORECASE)
     if matchObj:
         return True
-    else: 
-        return False  
+    else:
+        return False
 
 def f_has_bot_word_in_screen_name(data:data):
-    userData = data.getUserData() 
+    userData = data.getUserData()
     if not "screen_name" in userData: return None
     matchObj = re.search('bot', userData['screen_name'], flags=re.IGNORECASE)
     if matchObj:
         return True
-    else: 
-        return False     
+    else:
+        return False
 
 def f_has_bot_word_in_description(data:data):
-    userData = data.getUserData() 
+    userData = data.getUserData()
     if not "description" in userData: return None
     matchObj = re.search('bot', userData['description'], flags=re.IGNORECASE)
     if matchObj:
         return True
-    else: 
-        return False      
+    else:
+        return False
 
 def f_user_tweets_count(data:data):
-    userData = data.getUserData()        
+    userData = data.getUserData()
     if not "created_at" in userData: return None
     created_at = datetime.strptime(userData['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     now = datetime.today()
     delta = now-created_at
-    return (delta.days)               
+    return (delta.days)

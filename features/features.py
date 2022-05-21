@@ -1,10 +1,10 @@
-from constants import properties as prop
+from features.constants import properties as prop
 from inspect import getmembers, isfunction
-import user, temporal, content, tools
+import features.user, features.temporal, features.tools as tools#, features.content
 
-class features:
+class Features:
     def __init__(self,tweets,user,*otherData):
-        self.data = tools.data(tweets,tweets[0][prop.user],user,otherData)
+        self.data = tools.data(tweets,tweets[0][prop.tweet.USER],user,otherData)
 
     def get_features(self,importedScript):
         user_features = {}
@@ -22,13 +22,13 @@ class features:
         return user_features
 
     def get_user_features(self):
-        return self.get_features(user)
+        return self.get_features(features.user)
 
     def get_temporal_features(self):
-        return self.get_features(temporal)
+        return self.get_features(features.temporal)
 
     def get_content_features(self):
-        return self.get_features(content)
+        return self.get_features(features.content)
 
     #################################################################
     # /!\ More feature types can be added here by importing another #

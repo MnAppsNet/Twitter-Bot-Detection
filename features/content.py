@@ -1,7 +1,7 @@
 import math
-from tools import data
-from features.tools import get_all_texts, get_statistical_results_of_list, get_retweets
-from twitter_preprocessor import TwitterPreprocessor
+from features.tools import data
+from features.tools import get_all_texts, get_statistical_results_of_list
+from tweeter_preprocessing import TwitterPreprocessor
 from itertools import combinations
 from nltk import pos_tag, word_tokenize
 import string
