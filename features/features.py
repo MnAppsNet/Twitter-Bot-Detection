@@ -29,6 +29,12 @@ class Features:
 
     def get_content_features(self):
         return self.get_features(features.content)
+    
+    def get_network_features(self):
+        return self.get_features(features.network)
+    
+    def get_sentiment_features(self):
+        return self.get_features(features.sentiment)
 
     #################################################################
     # /!\ More feature types can be added here by importing another #

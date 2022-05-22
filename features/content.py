@@ -141,6 +141,74 @@ def f_marks_per_tweet(data:data):
             marks_count.append(len([char for char in t if char in string.punctuation]))
     return marks_count
 
-def f_marks_distribution(tweets):
+def f_marks_distribution(data:data):
+    tweets = data.getTweets()
     marksPerTweet = f_marks_per_tweet(tweets)
     return get_statistical_results_of_list(marksPerTweet)
+
+def get_tweet_retweet_ratio(data:data):
+    tweets = data.getTweets()
+    ts = 0
+    rts = 0
+    for t in tweets:
+        if 'retweeted_status' in t:
+            rts += 1
+        else:
+            ts += 1
+    if rts == 0:
+        rts += 1
+    ratio = ts / (rts)
+    return ts, rts, ratio
+
+def source_change(data:data):
+    tweets = data.getTweets()
+    sourceSet = set()
+    for t in tweets:
+        source = t['source']
+        sourceSet.add(source)
+    if len(sourceSet) > 1:
+        return True
+    else:
+        return False
+
+def source_types(data:data):
+    tweets = data.getTweets()
+    sourceSet = set()
+    for t in tweets:
+        source = t['source']
+        sourceSet.add(source)
+    return len(sourceSet)
+
+def get_unique_mentions_rate(data:data):
+    tweets = data.getTweets()
+    mentions = set()
+    for t in tweets:
+        if 'retweeted_status' not in t:
+            entities = t['entities']
+            for i in entities['user_mentions']:
+                mentions.add(i['id_str'])
+    return round(len(mentions)/len(tweets),3)
+
+def get_average_marked_as_favorite(data:data):
+    tweets = data.getTweets()
+    favs = []
+    for t in tweets:
+        favs.append(t['favorite_count'])
+    return get_statistical_results_of_list(favs)
+
+def get_retweeted(data:data):
+    tweets = data.getTweets()
+    rts = []
+    for t in tweets:
+        if 'retweeted_status' not in t:
+            rts.append(t['retweet_count'])
+    return get_statistical_results_of_list(rts)
+
+def get_statistics_of_their_retweets(data:data):
+    tweets = data.getTweets()
+    rts=[]
+    for t in tweets:
+        if 'retweeted_status' in t:
+            times_retweeted = t['retweeted_status']['retweet_count']
+            rts.append(times_retweeted)
+    return get_statistical_results_of_list(rts)
