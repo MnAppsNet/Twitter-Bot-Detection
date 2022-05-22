@@ -23,26 +23,26 @@ import numpy as np
 #and the date_last.
 ################################################################
 
-def total_days(tweets):
+def f_total_days(tweets):
     first = datetime.strptime(tweets[0]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     days = (first-last).days
     return days
 
-def consecutive_days(tweets):
+def f_consecutive_days(tweets):
     last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     dateList = []
-    numofDays = total_days(tweets)
+    numofDays = f_total_days(tweets)
     for n in range(numofDays + 1):
         dateList.append(last.date() + timedelta(n))
     return dateList
 
-def min_max_dates_per_day(tweets):
+def f_min_max_dates_per_day(tweets):
     dates = []
     for t in tweets:
         tweet_date = datetime.strptime(t['created_at'],'%a %b %d %H:%M:%S +0000 %Y').date()
         dates.append(tweet_date)
-    date_list = consecutive_days(tweets)
+    date_list = f_consecutive_days(tweets)
     c = Counter(dates)
     if len(date_list)>0:
         for d in date_list:
@@ -54,7 +54,7 @@ def min_max_dates_per_day(tweets):
 
 def f_total_days(data:data):
     tweets = data.getTweets()
-    return total_days(tweets)
+    return f_total_days(tweets)
 
 def f_total_hours(data:data):
     tweets = data.getTweets()
@@ -65,7 +65,7 @@ def f_total_hours(data:data):
 
 def f_max_min_tweets_per_day(data:data):
     tweets = data.getTweets()
-    c = min_max_dates_per_day(tweets)
+    c = f_min_max_dates_per_day(tweets)
     if c != None:
         return get_statistical_results_of_list(np.array(list(c.values())).flatten())
                #min(c.values()), max(c.values()), np.mean(list(c.values())), np.median(list(c.values())), np.std(list(c.values())), \
@@ -76,9 +76,9 @@ def f_max_min_tweets_per_day(data:data):
 
 def f_consecutive_days_of_no_activity(data:data):
     tweets = data.getTweets()
-    c = min_max_dates_per_day(tweets)
+    c = f_min_max_dates_per_day(tweets)
     if c == None: return 0
-    alldates = consecutive_days(tweets)
+    alldates = f_consecutive_days(tweets)
     i = 0
     maximum = 0
     dat = []
@@ -101,9 +101,9 @@ def f_consecutive_days_of_no_activity(data:data):
 
 def f_consecutive_days_of_activity(data:data):
     tweets = data.getTweets()
-    c = min_max_dates_per_day(tweets)
+    c = f_min_max_dates_per_day(tweets)
     if c == None: return 0
-    alldates = consecutive_days(tweets)
+    alldates = f_consecutive_days(tweets)
     i = 0
     maximum = 0
     dat = []
