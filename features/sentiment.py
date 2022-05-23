@@ -100,5 +100,5 @@ def f_neutral_sentiment_per_tweet(data:data):
     sentiment = []
     for t in texts:
         sent = analyzer.polarity_scores(t)
-        sentiment.append(sent['neg'])
+        sentiment.append(sent['neu'])
     return get_statistical_results_of_list(sentiment)
