@@ -51,7 +51,7 @@ def f_graph_features(G):
         return 0,0,[],0,0
     return density,avg_clustering,triangles,volume,mass
 
-def f_get_hashtag_network(data:data):
+def f_hashtag_network(data:data):
     tweets = data.getTweets()
     G = nx.Graph()
     for t in tweets:

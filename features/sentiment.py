@@ -6,16 +6,16 @@ from features.tools import data
 
 analyzer = vds()
 
-def f_extract_emojis(s):
+def extract_emojis(s):
     emojis=[c for c in s if c in emoji.UNICODE_EMOJI]
     return emojis
 
-def f_get_all_emojis(data:data):
+def f_all_emojis(data:data):
     tweets = data.getTweets()
     allemojis=[]
     texts = get_all_texts(tweets)
     for t in texts:
-        allemojis.extend(f_extract_emojis(t))
+        allemojis.extend(extract_emojis(t))
     return allemojis
 
 def f_tweet_emoji_ratio(data:data):
@@ -23,32 +23,32 @@ def f_tweet_emoji_ratio(data:data):
     texts = get_all_texts(tweets)
     j=0
     for t in texts:
-        emojis = f_extract_emojis(t)
+        emojis = extract_emojis(t)
         if len(emojis)>0:
             j+=1
     return j/len(tweets)
 
-def f_get_most_common_emoji(data:data):
+def f_most_common_emoji(data:data):
     tweets = data.getTweets()
-    allemojis = f_get_all_emojis(tweets)
+    allemojis = f_all_emojis(tweets)
     if len(allemojis)>0:
         c = Counter(allemojis)
         return c.most_common(1)[0][1]
     else:
         return 0
 
-def f_get_emojis_per_tweet(data:data):
+def f_emojis_per_tweet(data:data):
     tweets = data.getTweets()
     emojis_count=[]
     all_texts = get_all_texts(tweets)
     if len(all_texts)>2:
         for t in all_texts:
-            emojis_count.append(len(f_extract_emojis(t)))
+            emojis_count.append(len(extract_emojis(t)))
             # if len(extract_emojis(t))>5:
             #     print (t,tweets[all_texts.index(t)]['id_str'])
     return get_statistical_results_of_list(emojis_count)
 
-def f_get_positive_negative_neutral_emojis_per_tweet(data:data):
+def f_positive_negative_neutral_emojis_per_tweet(data:data):
     tweets = data.getTweets()
     neg_emojis_count = []
     pos_emojis_count = []
@@ -59,7 +59,7 @@ def f_get_positive_negative_neutral_emojis_per_tweet(data:data):
             neu = 0
             pos = 0
             neg = 0
-            emojis = f_extract_emojis(t)
+            emojis = extract_emojis(t)
             if len(emojis)>0:
                 for e in emojis:
                     emojiSent = analyzer.polarity_scores(e)
@@ -76,7 +76,7 @@ def f_get_positive_negative_neutral_emojis_per_tweet(data:data):
                 pos_emojis_count.append(pos)
     return get_statistical_results_of_list(neu_emojis_count),get_statistical_results_of_list(neg_emojis_count),get_statistical_results_of_list(pos_emojis_count)
 
-def f_get_positive_sentiment_per_tweet(data:data):
+def f_positive_sentiment_per_tweet(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     sentiment = []
@@ -85,7 +85,7 @@ def f_get_positive_sentiment_per_tweet(data:data):
         sentiment.append(sent['pos'])
     return get_statistical_results_of_list(sentiment)
 
-def f_get_negative_sentiment_per_tweet(data:data):
+def f_negative_sentiment_per_tweet(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     sentiment = []
@@ -94,7 +94,7 @@ def f_get_negative_sentiment_per_tweet(data:data):
         sentiment.append(sent['neg'])
     return get_statistical_results_of_list(sentiment)
 
-def f_get_neutral_sentiment_per_tweet(data:data):
+def f_neutral_sentiment_per_tweet(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
     sentiment = []
