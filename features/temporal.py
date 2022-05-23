@@ -23,21 +23,24 @@ import numpy as np
 #and the date_last.
 ################################################################
 
-def total_days(tweets):
+def total_days(data:data):
+    tweets = data.getTweets()
     first = datetime.strptime(tweets[0]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     days = (first-last).days
     return days
 
-def f_consecutive_days(tweets):
+def f_consecutive_days(data:data):
+    tweets = data.getTweets()
     last = datetime.strptime(tweets[-1]['created_at'],'%a %b %d %H:%M:%S +0000 %Y')
     dateList = []
-    numofDays = total_days(tweets)
+    numofDays = total_days(data)
     for n in range(numofDays + 1):
         dateList.append(last.date() + timedelta(n))
     return dateList
 
-def f_min_max_dates_per_day(tweets):
+def f_min_max_dates_per_day(data:data):
+    tweets = data.getTweets()
     dates = []
     for t in tweets:
         tweet_date = datetime.strptime(t['created_at'],'%a %b %d %H:%M:%S +0000 %Y').date()
