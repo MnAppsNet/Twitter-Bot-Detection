@@ -85,27 +85,33 @@ def f_has_bot_word_in_name(data:data):
     if not "name" in userData: return None
     matchObj = re.search('bot', userData['name'], flags=re.IGNORECASE)
     if matchObj:
-        return True
+        # return True
+        return [ ["bot_word_in_name",1] , ["not_bot_word_in_name", 0 ]  ]
     else:
-        return False
+        # return False
+        return [ ["bot_word_in_name",0] , ["not_bot_word_in_name", 1 ]  ]
 
 def f_has_bot_word_in_screen_name(data:data):
     userData = data.getUserData()
     if not "screen_name" in userData: return None
     matchObj = re.search('bot', userData['screen_name'], flags=re.IGNORECASE)
     if matchObj:
-        return True
+        # return True
+        return [ ["bot_word_in_screen_name",1] , ["not_bot_word_in_screen_name", 0 ]  ]
     else:
-        return False
+        # return False
+        return [ ["bot_word_in_screen_name",0] , ["not_bot_word_in_screen_name", 1 ]  ]
 
 def f_has_bot_word_in_description(data:data):
     userData = data.getUserData()
     if not "description" in userData: return None
     matchObj = re.search('bot', userData['description'], flags=re.IGNORECASE)
     if matchObj:
-        return True
+        # return True
+        return [ ["bot_word_in_description",1] , ["not_bot_word_in_description", 0]  ]
     else:
-        return False
+        # return False
+        return [ ["bot_word_in_description",0] , ["not_bot_word_in_description", 1]  ]
 
 def f_user_tweets_count(data:data):
     userData = data.getUserData()
