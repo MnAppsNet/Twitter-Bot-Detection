@@ -6,12 +6,12 @@ from features.tools import data
 
 analyzer = vds()
 
-def extract_emojis(s):
+def extract_emojis(s): #/!\ Not starting with f_ because we don't want to get a feature out of this !!
     emojis=[c for c in s if c in emoji.UNICODE_EMOJI]
     return emojis
 
-def f_all_emojis(data:data):
-    tweets = data.getTweets()
+def all_emojis(tweets): #/!\ Not starting with f_ because we don't want to get a feature out of this !!
+    # tweets = data.getTweets()
     allemojis=[]
     texts = get_all_texts(tweets)
     for t in texts:
@@ -30,7 +30,7 @@ def f_tweet_emoji_ratio(data:data):
 
 def f_most_common_emoji(data:data):
     tweets = data.getTweets()
-    allemojis = f_all_emojis(tweets)
+    allemojis = all_emojis(tweets)
     if len(allemojis)>0:
         c = Counter(allemojis)
         return c.most_common(1)[0][1]
