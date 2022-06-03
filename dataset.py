@@ -21,9 +21,7 @@ def getFeaturesFromDBData(mongo_db_uri):
             i += 1
             continue
         features = Features(tweets,user)
-        user_features = features.get_user_features()
-        temporal_features = features.get_temporal_features()
-        features = {**user_features,**temporal_features}
+        features = features.get_all_features()
         features['label'] = label
         df_dictionary = DataFrame([features])
         dataset = concat([dataset, df_dictionary], ignore_index=True)

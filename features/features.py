@@ -44,6 +44,16 @@ class Features:
     def get_sentiment_features(self):
         return self.get_features(features.sentiment)
 
+    def get_all_features(self):
+        return {
+            **self.get_user_features(),
+            **self.get_temporal_features()
+            #**self.get_sentiment_features(),
+            #**self.get_content_features(),
+            #**self.get_content_features()
+            #/!\ Add more feature to be returned here /!\
+            }
+
     #################################################################
     # /!\ More feature types can be added here by importing another #
     # /!\ script and implementing a new method to get the features  #
