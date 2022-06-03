@@ -16,11 +16,13 @@ def f_get_average_age_difference_in_retweets(data:data):
             age_difList.append(age_dif)
     if len(age_difList)>0:
         try:
-            return statistics.mean(age_difList),statistics.median(age_difList)
+            # return statistics.mean(age_difList),statistics.median(age_difList)
+            [ ["mean_age_difference_in_retweets",statistics.mean(age_difList)] , ["median_age_difference_in_retweets", statistics.median(age_difList) ]  ]
         except:
             print('error in get average age difference in retweets')
     else:
-        return None,None
+        # return None,None
+        [ ["mean_age_difference_in_retweets",None] , ["median_age_difference_in_retweets", None ]  ]
 
 def f_get_network_of_retweeters(retweets,neighbor_tweets):
     user = retweets[0]['user']['id_str']
