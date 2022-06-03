@@ -17,9 +17,9 @@ class Features:
                 #If a list of features is returned, create a new entry for each
                     if len(results) >= 2:
                         for result in results:
-                            if type(result[1]) == str or type(results) == tuple or type(results) == dict:
+                            if type(result[1]) == str or type(result[1]) == tuple or type(result[1]) == dict:
                                 raise Exception(f"Value returned from feature function '{importedScript.__name__}.{fm[0]}', is not numeric")
-                            user_features[feature_name + str(results[0])] = result[1]
+                            user_features[feature_name + str(result[0])] = result[1]
                 elif type(results) == str or type(results) == tuple or type(results) == dict:
                     raise Exception(f"Value returned from feature function '{importedScript.__name__}.{fm[0]}', is not numeric")
                 else:
