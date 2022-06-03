@@ -1,3 +1,7 @@
+#
+#Gather all the needed info from data in the folder data
+#
+
 import json
 from os.path import exists
 
