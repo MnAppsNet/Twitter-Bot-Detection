@@ -46,7 +46,7 @@ def f_emojis_per_tweet(data:data):
             emojis_count.append(len(extract_emojis(t)))
             # if len(extract_emojis(t))>5:
             #     print (t,tweets[all_texts.index(t)]['id_str'])
-    return get_statistical_results_of_list(emojis_count, "emojis_per_tweet")
+    return get_statistical_results_of_list(emojis_count)
 
 # def f_positive_negative_neutral_emojis_per_tweet(data:data):
 #     tweets = data.getTweets()
@@ -83,7 +83,7 @@ def f_positive_sentiment_per_tweet(data:data):
     for t in texts:
         sent = analyzer.polarity_scores(t)
         sentiment.append(sent['pos'])
-    return get_statistical_results_of_list(sentiment, "positive_sentiment_per_tweet")
+    return get_statistical_results_of_list(sentiment)
 
 def f_negative_sentiment_per_tweet(data:data):
     tweets = data.getTweets()
@@ -92,7 +92,7 @@ def f_negative_sentiment_per_tweet(data:data):
     for t in texts:
         sent = analyzer.polarity_scores(t)
         sentiment.append(sent['neg'])
-    return get_statistical_results_of_list(sentiment, "negative_sentiment_per_tweet")
+    return get_statistical_results_of_list(sentiment)
 
 def f_neutral_sentiment_per_tweet(data:data):
     tweets = data.getTweets()
@@ -101,4 +101,4 @@ def f_neutral_sentiment_per_tweet(data:data):
     for t in texts:
         sent = analyzer.polarity_scores(t)
         sentiment.append(sent['neu'])
-    return get_statistical_results_of_list(sentiment, "neutral_sentiment_per_tweet")
+    return get_statistical_results_of_list(sentiment)
