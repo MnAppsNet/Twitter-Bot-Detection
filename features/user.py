@@ -112,7 +112,7 @@ def f_has_bot_word_in_description(data:data):
         # return False
         return [ ["bot_word_in_description",0] , ["not_bot_word_in_description", 1]  ]
 
-def f_user_tweets_count(data:data):
+def f_days_since_creation(data:data):
     userData = data.getUserData()
     if not "created_at" in userData: return None
     created_at = datetime.strptime(userData['created_at'],'%a %b %d %H:%M:%S +0000 %Y')

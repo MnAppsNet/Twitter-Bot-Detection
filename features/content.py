@@ -24,7 +24,7 @@ from collections import Counter
 #and the date_last.
 ################################################################
 
-def f_jaccard_sim(str1, str2):
+def jaccard_sim(str1, str2): #/!\ Not starting with f_ because we don't want to get a feature out of this !!
     a = set(str1.split())
     b = set(str2.split())
     c = a.intersection(b)
@@ -40,7 +40,7 @@ def f_similarities(data:data):
     if len(texts)>2:
         combos = combinations(texts, 2)
         for c in combos:
-            similarities.append(f_jaccard_sim(c[0], c[1]))
+            similarities.append(jaccard_sim(c[0], c[1]))
     return get_statistical_results_of_list(similarities)
 
 def f_all_punctuation_marks(data:data):
@@ -75,7 +75,7 @@ def f_marks_distribution(data:data):
     marksPerTweet = f_marks_per_tweet(tweets)
     return get_statistical_results_of_list(marksPerTweet)
 
-def get_tweet_retweet_ratio(data:data):
+def f_tweet_retweet_ratio(data:data):
     tweets = data.getTweets()
     ts = 0
     rts = 0
@@ -100,7 +100,7 @@ def source_change(data:data):
     else:
         return False
 
-def source_types(data:data):
+def f_number_of_source(data:data):
     tweets = data.getTweets()
     sourceSet = set()
     for t in tweets:
@@ -108,7 +108,7 @@ def source_types(data:data):
         sourceSet.add(source)
     return len(sourceSet)
 
-def get_unique_mentions_rate(data:data):
+def f_unique_mentions_rate(data:data):
     tweets = data.getTweets()
     mentions = set()
     for t in tweets:
