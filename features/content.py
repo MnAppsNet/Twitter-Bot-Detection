@@ -41,7 +41,7 @@ def f_similarities(data:data):
         combos = combinations(texts, 2)
         for c in combos:
             similarities.append(jaccard_sim(c[0], c[1]))
-    return get_statistical_results_of_list(similarities)
+    return get_statistical_results_of_list(similarities, "similarities")
 
 def f_all_punctuation_marks(data:data):
     tweets = data.getTweets()
@@ -73,7 +73,7 @@ def f_marks_per_tweet(data:data):
 def f_marks_distribution(data:data):
     tweets = data.getTweets()
     marksPerTweet = f_marks_per_tweet(tweets)
-    return get_statistical_results_of_list(marksPerTweet)
+    return get_statistical_results_of_list(marksPerTweet, "marks")
 
 def f_tweet_retweet_ratio(data:data):
     tweets = data.getTweets()
@@ -123,7 +123,7 @@ def get_average_marked_as_favorite(data:data):
     favs = []
     for t in tweets:
         favs.append(t['favorite_count'])
-    return get_statistical_results_of_list(favs)
+    return get_statistical_results_of_list(favs, "marked as favovorite")
 
 def get_retweeted(data:data):
     tweets = data.getTweets()
@@ -131,7 +131,7 @@ def get_retweeted(data:data):
     for t in tweets:
         if 'retweeted_status' not in t:
             rts.append(t['retweet_count'])
-    return get_statistical_results_of_list(rts)
+    return get_statistical_results_of_list(rts, "retweets_per_tweet")
 
 def get_statistics_of_their_retweets(data:data):
     tweets = data.getTweets()
@@ -140,4 +140,4 @@ def get_statistics_of_their_retweets(data:data):
         if 'retweeted_status' in t:
             times_retweeted = t['retweeted_status']['retweet_count']
             rts.append(times_retweeted)
-    return get_statistical_results_of_list(rts)
+    return get_statistical_results_of_list(rts, "retweets_stat")

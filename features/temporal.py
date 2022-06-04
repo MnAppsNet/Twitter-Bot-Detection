@@ -67,12 +67,12 @@ def f_max_min_tweets_per_day(data:data):
     tweets = data.getTweets()
     c = min_max_dates_per_day(tweets)
     if c != None:
-        return get_statistical_results_of_list(np.array(list(c.values())).flatten())
+        return get_statistical_results_of_list(np.array(list(c.values())).flatten(), "tweets_per_day")
                #min(c.values()), max(c.values()), np.mean(list(c.values())), np.median(list(c.values())), np.std(list(c.values())), \
                #stats.skew(list(c.values())), stats.kurtosis(list(c.values())), stats.entropy(list(c.values())),c
     else:
         # print('get_max_min_tweets_per_day')
-        return get_statistical_results_of_list([])
+        return get_statistical_results_of_list([],"tweets_per_day")
 
 def f_consecutive_days_of_no_activity(data:data):
     tweets = data.getTweets()
@@ -135,7 +135,7 @@ def f_average_time_between_tweets(data:data):
                                    '%a %b %d %H:%M:%S +0000 %Y')
         gap = ((first - second).seconds)
         gapList.append(gap)
-    return get_statistical_results_of_list(gapList)
+    return get_statistical_results_of_list(gapList, "time_between_tweets")
 
 def f_max_occurence_of_same_gap(data:data):
     tweets = data.getTweets()
