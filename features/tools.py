@@ -23,7 +23,7 @@ def get_statistical_results_of_list(aList):
             ["skew",stats.skew(aList)], [" kurtosis",stats.kurtosis(aList)], [" entropy",stats.entropy(aList)]
         ]
     else:
-        return [ 
+        return [
             ["min",0], ["max",0], ["mean",0], ["median",0], ["std",0], ["skew",0], ["kurtosis",0], ["entropy",0]
         ]
 

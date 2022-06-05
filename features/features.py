@@ -1,6 +1,6 @@
 from features.constants import properties as prop
 from inspect import getmembers, isfunction
-import features.user, features.temporal, features.tools as tools#, features.content
+import features.user, features.temporal, features.content, features.sentiment, features.network, features.tools as tools
 
 class Features:
     def __init__(self,tweets,user,*otherData):
@@ -51,9 +51,9 @@ class Features:
         return {
             **self.get_user_features(),
             **self.get_temporal_features()
-            #**self.get_sentiment_features(),
-            #**self.get_content_features(),
-            #**self.get_content_features()
+            **self.get_sentiment_features(),
+            **self.get_content_features(),
+            **self.get_content_features()
             #/!\ Add more feature to be returned here /!\
             }
 
