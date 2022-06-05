@@ -65,7 +65,7 @@ def trainModels(dataset:DataFrame):
         kfold = model_selection.KFold(n_splits=5, shuffle=True, random_state=42)
         cv_results = model_selection.cross_validate(model, x_train, y_train, cv=kfold, scoring=scoring)
         clf = model.fit(x_train, y_train)
-        y_pred = clf.predict(x_train)
+        y_pred = clf.predict(x_test)
         print(name)
         metrics = classification_report(y_test, y_pred, target_names=target_names)
         print(metrics)

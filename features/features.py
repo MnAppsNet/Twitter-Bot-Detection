@@ -1,3 +1,4 @@
+from numpy import NaN
 from features.constants import properties as prop
 from inspect import getmembers, isfunction
 import features.user, features.temporal, features.content, features.sentiment, features.network, features.tools as tools
@@ -17,10 +18,14 @@ class Features:
                 #If a list of features is returned, create a new entry for each
                     if len(results) >= 2:
                         for result in results:
+                            if result[1] == NaN:
+                                raise Exception(f"Feature function '{importedScript.__name__}.{fm[0]}' return NaN")
                             if result[1] == None: result[1] = 0
                             if type(result[1]) == str or type(result[1]) == tuple or type(result[1]) == dict:
                                 raise Exception(f"Value returned from feature function '{importedScript.__name__}.{fm[0]}', is not numeric")
                             user_features[feature_name + str(result[0])] = result[1]
+                elif results == NaN:
+                    raise Exception(f"Feature function '{importedScript.__name__}.{fm[0]}' return NaN")
                 elif results == None:
                     user_features[feature_name] = 0
                 elif type(results) == str or type(results) == tuple or type(results) == dict:

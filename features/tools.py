@@ -20,7 +20,7 @@ def get_statistical_results_of_list(aList):
     if len(aList)>=1:
         return [
             ["_min",min(aList)], ["_max",max(aList)], ["_mean",np.mean(aList)], ["_median",np.median(aList)], ["_std",np.std(aList)],
-            ["_skew",stats.skew(aList)], ["_kurtosis",stats.kurtosis(aList)], ["_entropy",stats.entropy(aList)]
+            ["_skew",stats.skew(aList)], ["_kurtosis",stats.kurtosis(aList)], ["_entropy",stats.entropy(aList) if np.sum(aList, axis=0, keepdims=True) != 0 else 0]
         ]
     else:
         return [
