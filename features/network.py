@@ -24,6 +24,15 @@ def f_get_average_age_difference_in_retweets(data:data):
         # return None,None
         [ ["mean_age_difference_in_retweets",None] , ["median_age_difference_in_retweets", None ]  ]
 
+def f_number_of_accounts_retweeted(data:data):
+    tweets = data.getTweets()
+    accounts_retweeted = []
+    for t in tweets:
+        if 'retweeted_status' in t:
+            if t['retweeted_status']['user']['id_str'] not in accounts_retweeted:
+                accounts_retweeted.append(t['retweeted_status']['user']['id_str'])
+    return len(accounts_retweeted)
+
 # def f_get_network_of_retweeters(retweets,neighbor_tweets):
 #     user = retweets[0]['user']['id_str']
 #     G = nx.Graph()
