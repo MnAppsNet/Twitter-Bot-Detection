@@ -50,7 +50,7 @@ class Features:
     def get_all_features(self):
         return {
             **self.get_user_features(),
-            **self.get_temporal_features()
+            **self.get_temporal_features(),
             **self.get_sentiment_features(),
             **self.get_content_features(),
             **self.get_network_features()
