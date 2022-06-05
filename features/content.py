@@ -43,23 +43,23 @@ def f_similarities(data:data):
             similarities.append(jaccard_sim(c[0], c[1]))
     return get_statistical_results_of_list(similarities)
 
-def f_all_punctuation_marks(data:data):
-    tweets = data.getTweets()
-    marks=[]
-    all_texts = get_all_texts(tweets)
-    for t in all_texts:
-        marks.extend([char for char in t if char in string.punctuation])
-    return marks
+# def f_all_punctuation_marks(data:data):
+#     tweets = data.getTweets()
+#     marks=[]
+#     all_texts = get_all_texts(tweets)
+#     for t in all_texts:
+#         marks.extend([char for char in t if char in string.punctuation])
+#     return marks
 
 
-def f_common_marks(data:data):
-    tweets = data.getTweets()
-    allmarks = f_all_punctuation_marks(tweets)
-    if len(allmarks) > 0:
-        c = Counter(allmarks)
-        return c.most_common(1)[0][0],c.most_common(1)[0][1]
-    else:
-        return '',0
+# def f_common_marks(data:data):
+#     tweets = data.getTweets()
+#     allmarks = f_all_punctuation_marks(tweets)
+#     if len(allmarks) > 0:
+#         c = Counter(allmarks)
+#         return c.most_common(1)[0][0],c.most_common(1)[0][1]
+#     else:
+#         return '',0
 
 def f_marks_per_tweet(data:data):
     tweets = data.getTweets()
@@ -89,18 +89,7 @@ def f_tweet_retweet_ratio(data:data):
     ratio = ts / (rts)
     return ratio
 
-def source_change(data:data):
-    tweets = data.getTweets()
-    sourceSet = set()
-    for t in tweets:
-        source = t['source']
-        sourceSet.add(source)
-    if len(sourceSet) > 1:
-        return True
-    else:
-        return False
-
-def f_number_of_source(data:data):
+def f_number_of_sources(data:data):
     tweets = data.getTweets()
     sourceSet = set()
     for t in tweets:
@@ -118,14 +107,14 @@ def f_unique_mentions_rate(data:data):
                 mentions.add(i['id_str'])
     return round(len(mentions)/len(tweets),3)
 
-def get_average_marked_as_favorite(data:data):
+def f_average_marked_as_favorite(data:data):
     tweets = data.getTweets()
     favs = []
     for t in tweets:
         favs.append(t['favorite_count'])
     return get_statistical_results_of_list(favs)
 
-def get_retweeted(data:data):
+def f_retweeted(data:data):
     tweets = data.getTweets()
     rts = []
     for t in tweets:
@@ -133,7 +122,7 @@ def get_retweeted(data:data):
             rts.append(t['retweet_count'])
     return get_statistical_results_of_list(rts)
 
-def get_statistics_of_their_retweets(data:data):
+def f_statistics_of_their_retweets(data:data):
     tweets = data.getTweets()
     rts=[]
     for t in tweets:
