@@ -22,7 +22,7 @@ class Features:
                                 raise Exception(f"Value returned from feature function '{importedScript.__name__}.{fm[0]}', is not numeric")
                             user_features[feature_name + str(result[0])] = result[1]
                 elif results == None:
-                    user_features[feature_name + str(result[0])] = 0
+                    user_features[feature_name] = 0
                 elif type(results) == str or type(results) == tuple or type(results) == dict:
                     raise Exception(f"Value returned from feature function '{importedScript.__name__}.{fm[0]}', is not numeric")
                 else:
