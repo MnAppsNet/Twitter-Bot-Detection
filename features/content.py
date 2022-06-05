@@ -61,8 +61,8 @@ def f_similarities(data:data):
 #     else:
 #         return '',0
 
-def f_marks_per_tweet(data:data):
-    tweets = data.getTweets()
+def marks_per_tweet(tweets):
+    # tweets = data.getTweets()
     marks_count=[]
     all_texts = get_all_texts(tweets)
     if len(all_texts)>2:
@@ -72,7 +72,7 @@ def f_marks_per_tweet(data:data):
 
 def f_marks_distribution(data:data):
     tweets = data.getTweets()
-    marksPerTweet = f_marks_per_tweet(tweets)
+    marksPerTweet = marks_per_tweet(tweets)
     return get_statistical_results_of_list(marksPerTweet)
 
 def f_tweet_retweet_ratio(data:data):
