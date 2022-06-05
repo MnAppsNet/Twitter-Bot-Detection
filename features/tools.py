@@ -19,12 +19,12 @@ class data:
 def get_statistical_results_of_list(aList):
     if len(aList)>=1:
         return [
-            ["min",min(aList)], ["max",max(aList)], ["mean",np.mean(aList)], ["median",np.median(aList)], ["std",np.std(aList)],
-            ["skew",stats.skew(aList)], [" kurtosis",stats.kurtosis(aList)], [" entropy",stats.entropy(aList)]
+            ["_min",min(aList)], ["_max",max(aList)], ["_mean",np.mean(aList)], ["_median",np.median(aList)], ["_std",np.std(aList)],
+            ["_skew",stats.skew(aList)], ["_kurtosis",stats.kurtosis(aList)], ["_entropy",stats.entropy(aList)]
         ]
     else:
         return [
-            ["min",0], ["max",0], ["mean",0], ["median",0], ["std",0], ["skew",0], ["kurtosis",0], ["entropy",0]
+            ["_min",0.0], ["_max",0.0], ["_mean",0.0], ["_median",0.0], ["_std",0.0], ["_skew",0.0], ["_kurtosis",0.0], ["_entropy",0.0]
         ]
 
 def get_all_texts(tweets):
