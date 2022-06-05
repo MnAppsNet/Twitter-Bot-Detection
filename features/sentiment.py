@@ -28,14 +28,12 @@ def f_tweet_emoji_ratio(data:data):
             j+=1
     return j/len(tweets)
 
-# def f_most_common_emoji(data:data):
-#     tweets = data.getTweets()
-#     allemojis = all_emojis(tweets)
-#     if len(allemojis)>0:
-#         c = Counter(allemojis)
-#         return c.most_common(1)[0][1]
-#     else:
-#         return 0
+def f_most_common_emoji(data:data):
+    tweets = data.getTweets()
+    allemojis = all_emojis(tweets)
+    if len(allemojis)>0:
+        c = Counter(allemojis)
+        return [[c.most_common(1)[0][1], c[c.most_common(1)[0][1]]]]
 
 def f_emojis_per_tweet(data:data):
     tweets = data.getTweets()
