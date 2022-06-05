@@ -33,6 +33,14 @@ def jaccard_sim(str1, str2): #/!\ Not starting with f_ because we don't want to 
     except ZeroDivisionError:
         return 0.0
 
+def marks_per_tweet(tweets):
+    marks_count=[]
+    all_texts = get_all_texts(tweets)
+    if len(all_texts)>2:
+        for t in all_texts:
+            marks_count.append(len([char for char in t if char in string.punctuation]))
+    return marks_count
+
 def f_similarities(data:data):
     tweets = data.getTweets()
     texts = get_all_texts(tweets)
@@ -61,18 +69,9 @@ def f_similarities(data:data):
 #     else:
 #         return '',0
 
-def f_marks_per_tweet(data:data):
-    tweets = data.getTweets()
-    marks_count=[]
-    all_texts = get_all_texts(tweets)
-    if len(all_texts)>2:
-        for t in all_texts:
-            marks_count.append(len([char for char in t if char in string.punctuation]))
-    return marks_count
-
 def f_marks_distribution(data:data):
     tweets = data.getTweets()
-    marksPerTweet = f_marks_per_tweet(tweets)
+    marksPerTweet = marks_per_tweet(tweets)
     return get_statistical_results_of_list(marksPerTweet)
 
 def f_tweet_retweet_ratio(data:data):
