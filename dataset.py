@@ -1,4 +1,4 @@
-import pymongo as mongo
+import pymongo as mongo, numpy as np
 from pandas import DataFrame, concat
 from features.features import Features
 
@@ -6,6 +6,7 @@ def getFeaturesFromDBData(mongo_db_uri):
     db = Database(mongo_db_uri)
     i = 0
     dataset = DataFrame()
+    executionTimes = []
     while True:
         document = db.getDocument(i)
         if not document: break
@@ -19,13 +20,18 @@ def getFeaturesFromDBData(mongo_db_uri):
             print(f'User {user} ({label}) has no tweets in the database')
             i += 1
             continue
-        features = Features(tweets,user)
-        features = features.get_all_features()
-        features['label'] = label
-        df_dictionary = DataFrame([features])
+        df_dictionary, executionTime = getUserFeaturesFromTweets(tweets,user,label)
+        executionTimes.append(executionTime)
         dataset = concat([dataset, df_dictionary], ignore_index=True)
         i += 1
+    print("Mean time to extract all features for a user : " + str(np.mean(executionTimes)))
     return dataset
+
+def getUserFeaturesFromTweets(tweets,user,label = None):
+   features = Features(tweets,user)
+   featuresDict = features.get_all_features()
+   if label != None: featuresDict['label'] = label
+   return DataFrame([featuresDict]), features.executionTime
 
 class Database:
     def __init__(self,uri):

@@ -16,6 +16,12 @@ class API:
     def getUserTimelineFromTwitter(self, userID):
         return self.api.user_timeline(user_id=str(userID),count=200,tweet_mode="extended",wait_on_rate_limit=True)
 
+    def getUserListTimelineFromTwitter(self, userIDs:list):
+        tweets = {}
+        for userID in userIDs:
+            tweets[userID] = self.api.user_timeline(user_id=str(userID),count=200,tweet_mode="extended",wait_on_rate_limit=True)
+        return tweets
+
     def getDataFromTweeterInDB(self, mongo_database_uri,users_csv):
         db = Database(mongo_database_uri)
         user_ids = open(users_csv)

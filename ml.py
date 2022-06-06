@@ -7,10 +7,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 #from xgboost import XGBClassifier
 from sklearn import model_selection
-from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
-from sklearn.cluster import KMeans
+from sklearn import preprocessing
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -25,6 +24,7 @@ def trainSupervisedModels(dataset:DataFrame):
     Y = dataset.label.copy()
     X = dataset.copy()
     X = X.drop(columns=['label'])
+    X = preprocessing.scale(X)                          #Scale features
 
     #Scale features :
     models = [
@@ -38,13 +38,12 @@ def trainSupervisedModels(dataset:DataFrame):
     results = []
 
     scoring = ['accuracy', 'precision_weighted', 'recall_weighted', 'f1_weighted', 'roc_auc']
-    target_names = ['BOT', 'HUMAN']
     for name, model in models:
         result = {}
         result['name'] = name;
-        result['model'] = model;
+        result['model'] = model.fit(X, Y.values.tolist());
         kfold = model_selection.KFold(n_splits=5, shuffle=True, random_state=42)
-        cv_results = model_selection.cross_validate(model, X, Y, cv=kfold, scoring=scoring)
+        cv_results = model_selection.cross_validate(model, X, Y.values.tolist(), cv=kfold, scoring=scoring)
         result['metrics'] = {}
         for s in scoring:
             result['metrics'][s] = np.mean(cv_results['test_' + s])
@@ -52,6 +51,7 @@ def trainSupervisedModels(dataset:DataFrame):
         full_results['model'] = name
         result['full_results'] = full_results.copy()
         results.append(result)
+
     return results
 
 def supervisedModelComparison(results):
@@ -78,32 +78,3 @@ def supervisedModelComparison(results):
     plt.savefig('./benchmark_models_performance.png',dpi=300)
     metrics = list(set(results_long_nofit.metrics.values))
     bootstrap_df.groupby(['model'])[metrics].agg([np.std, np.mean])
-
-def findeKmeansClusterNumber(dataset):
-    plt.figure(figsize=(10, 8))
-    wcss = []
-    for i in range(1, 11):
-        kmeans = KMeans(n_clusters = i, init = 'k-means++', random_state = 42)
-        kmeans.fit(dataset)
-        wcss.append(kmeans.inertia_)
-    plt.plot(range(1, 11), wcss)
-    plt.title('The Elbow Method')
-    plt.xlabel('Number of clusters')
-    plt.ylabel('WCSS')
-    plt.show()
-
-def trainUnsupervisedModels(dataset):
-    # Fitting K-Means to the dataset
-    kmeans = KMeans(n_clusters = 5, init = 'k-means++', random_state = 42)
-    y_kmeans = kmeans.fit_predict(dataset)
-    #beginning of  the cluster numbering with 1 instead of 0
-    y_kmeans1=y_kmeans
-    y_kmeans1=y_kmeans+1
-    # New Dataframe called cluster
-    cluster = pd.DataFrame(y_kmeans1)
-    # Adding cluster to the Dataset1
-    dataset['cluster'] = cluster
-    #Mean of clusters
-    kmeans_mean_cluster = pd.DataFrame(round(dataset.groupby('cluster').mean(),1))
-    kmeans_mean_cluster
-    return cluster
